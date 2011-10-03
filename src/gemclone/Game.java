@@ -6,6 +6,7 @@ import org.newdawn.slick.*;
 
 public class Game extends BasicGame {
   
+  final String BG_IMAGE = "data/bg0.png";
   final int GRAVITY = 1;
   final int BULLET_SPEED = 3;
   final int BULLET_LIMIT = 3;
@@ -159,7 +160,7 @@ public class Game extends BasicGame {
   public void render(GameContainer container, Graphics g) {
     
     try {
-      Image bg = new Image("data/bg.jpg");
+      Image bg = new Image(BG_IMAGE);
       bg.draw(0,0);
     } catch (SlickException e) {
       e.printStackTrace();
