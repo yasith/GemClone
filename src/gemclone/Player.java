@@ -12,9 +12,9 @@ public class Player{
   private Animation anims[] = new Animation[4];
   private int dir;
   
-  boolean onJump = false;
-  int vNow;
-  int vIni = 15;
+  private boolean onJump = false;
+  private int vNow;
+  private int vIni = 15;
   
   
   public Player(SpriteSheet sheet) {
@@ -81,4 +81,31 @@ public class Player{
     anims[dir].setAutoUpdate(b);
   }
 
+  public void draw() {
+    anims[dir].draw(x, y);
+  }
+
+  public boolean onJump() {
+    return onJump;
+  }
+
+  public void setJump(boolean onJump) {
+    this.onJump = onJump;
+  }
+
+  public int vNow() {
+    return vNow;
+  }
+
+  public void setVNow(int vNow) {
+    this.vNow = vNow;
+  }
+
+  public int getIni() {
+    return vIni;
+  }
+
+  public void setIni(int vIni) {
+    this.vIni = vIni;
+  }
 }
