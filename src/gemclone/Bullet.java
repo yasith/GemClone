@@ -27,8 +27,6 @@ class Bullet{
     
     bounds = new Polygon(new float[] { x, y, x + img.getWidth(),
         y, x + img.getWidth(), y + img.getHeight(), x, y + img.getHeight() });
-    
-    //System.out.println("Reached!"); 
   }
   
   public Polygon getBounds() {

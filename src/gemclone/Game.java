@@ -17,6 +17,8 @@ public class Game extends BasicGame {
   public BlockMap map;
   
   private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+  
+  private long t; // For printing the message for walking out of the screen.
 
   public Game() {
     super("Gem Clone");
@@ -68,7 +70,6 @@ public class Game extends BasicGame {
     }
     
     if(!hasGround()) {
-//      System.out.println("Y " + player.getY());
       player.vNow += GRAVITY;
       player.move(0, player.vNow);
       if(entityCollisionWith()) {
@@ -107,8 +108,6 @@ public class Game extends BasicGame {
   public boolean hasGround() throws SlickException {
     for (int i = 0; i < BlockMap.entities.size(); i++) {
       Block entity = (Block) BlockMap.entities.get(i);
-//      System.out.println("Player " + player.getBounds().getMaxY());
-//      System.out.println("Entity " + entity.poly.getMinY());
       if(player.getBounds().getMaxY() <= entity.poly.getMinY() && player.getBounds().intersects(entity.poly)) {
         return true;
       }
@@ -122,6 +121,15 @@ public class Game extends BasicGame {
       if (player.getBounds().intersects(entity1.poly)) {
         return true;
       }
+    }
+    
+    if(player.getX() <= 0 || player.getX()+25 >= map.getWidth()) {
+      long td = Math.abs(t - System.currentTimeMillis());
+      if(td > 1000) {
+       t = System.currentTimeMillis();
+       System.out.println("Tsk tsk. Don't try to escape off the map.");
+      }
+      return true;
     }
     return false;
   }
