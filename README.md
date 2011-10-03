@@ -1,6 +1,7 @@
 #Compile With
 
 `mkdir obj`
+
 `javac -d obj -cp lib/slick.jar:lib/lwjgl.jar src/gemclone/*.java`
 
 #Run With
