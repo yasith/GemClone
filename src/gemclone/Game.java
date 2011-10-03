@@ -7,7 +7,8 @@ import org.newdawn.slick.*;
 public class Game extends BasicGame {
   
   final int GRAVITY = 1;
-  final int BULLET_SPEED = 5;
+  final int BULLET_SPEED = 3;
+  final int BULLET_LIMIT = 3;
   final int LEFT = 1;
   final int RIGHT = 2;
   final int DOWN = 3;
@@ -80,14 +81,19 @@ public class Game extends BasicGame {
     }
     
     if(container.getInput().isKeyPressed(Input.KEY_SPACE)) {
+      if(bullets.size() >= BULLET_LIMIT) {
+        System.out.println("No more bullets for you!");
+      }else {
         Bullet b = new Bullet("data/star.png", player.getX(), player.getY(), player.getDir());
         b.id = bullets.size();
         System.out.println("Fired Bullet " + b.id + " from " + b.x + ", " + b.y + ". Direction " + b.dir);
         bullets.add(b);
+      }
     }
     
     for(int i = 0; i < bullets.size(); i++) {
       Bullet b = bullets.get(i);
+      
       if(b.dir == LEFT) {
         b.move(-1 * BULLET_SPEED, 0);
       }
@@ -102,6 +108,11 @@ public class Game extends BasicGame {
         System.out.println("Bullet " + b.id + " going out of bounds");
         bullets.remove(b);
       }
+      
+      if(bulletHit(b)) {
+        System.out.println("Bullet " + b.id + " hit something!");
+        bullets.remove(b);
+      }
     }
   }
   
@@ -112,6 +123,17 @@ public class Game extends BasicGame {
         return true;
       }
     }
+    return false;
+  }
+  
+  public boolean bulletHit(Bullet b) throws SlickException {
+    for(Object obj: BlockMap.entities) {
+      Block block = (Block)obj;
+      if(b.bounds.intersects(block.poly)) {
+        return true;
+      }
+    }
+    
     return false;
   }
 
