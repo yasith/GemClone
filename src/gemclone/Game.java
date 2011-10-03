@@ -3,6 +3,7 @@ package gemclone;
 import java.util.ArrayList;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.Sound;
 
 public class Game extends BasicGame {
   
@@ -19,6 +20,7 @@ public class Game extends BasicGame {
   public BlockMap map;
   
   private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+  private Sound BSound;
   
   private long t; // For printing the message for walking out of the screen.
 
@@ -30,6 +32,7 @@ public class Game extends BasicGame {
     container.setVSync(true);
     SpriteSheet sheet = new SpriteSheet("data/sprites.png", 31, 32);
     map = new BlockMap("data/map01.tmx");
+    BSound = new Sound("data/bullet.ogg"); //TODO: REMOVE THIS BLOCK FROM THIS PLACE TO BULLET CLASS
     
     player = new Player(sheet);
     player.setPos(1, 1);
@@ -113,6 +116,7 @@ public class Game extends BasicGame {
       if(bulletHit(b)) {
         System.out.println("Bullet " + b.id + " hit something!");
         bullets.remove(b);
+        BSound.play();
       }
     }
   }
